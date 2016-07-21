@@ -12,7 +12,7 @@ def get_keyring_item(username, display, refresh=False):
     password = None
     if not refresh:
         password = keyring.get_password(system, username)
-    if password is None:
+    if not password:
         password = getpass(display)
         keyring.set_password(system, username, password)
     return password

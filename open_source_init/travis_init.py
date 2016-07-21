@@ -51,14 +51,14 @@ def set_travis_data(full_travis_path, data):
 
 def travis_encrypt(data, repo):
     public_key = fetch_public_key(repo)
-    return dict(secure=encrypt(public_key, data))
+    return {b'secure': encrypt(public_key, data)}
 
 
 def coveralls_init(full_travis_path):
     data = get_travis_data(full_travis_path)
-    after_success = data.get('after_success', [])
-    after_success.append('bash <(curl -s https://codecov.io/bash)')
-    data['after_success'] = after_success
+    after_success = data.get(b'after_success', [])
+    after_success.append(b'bash <(curl -s https://codecov.io/bash)')
+    data[b'after_success'] = after_success
     set_travis_data(full_travis_path, data)
 
 

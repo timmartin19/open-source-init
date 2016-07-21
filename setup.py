@@ -28,7 +28,7 @@ test_requirements = [
 
 setup(
     name='open-source-init',
-    version='0.1.0',
+    version='0.1.1',
     description="A tool to automatically create a github repo, integrate travis, code coverage, read the docs, and everything else necessary for OSS development",
     long_description=readme + '\n\n' + history,
     author="Tim Martin",
@@ -41,7 +41,7 @@ setup(
                  'open_source_init'},
     entry_points={
         'console_scripts': [
-            'open_source_init=open_source_init.cli:cli'
+            'open-source-init=open_source_init.cli:cli'
         ]
     },
     include_package_data=True,

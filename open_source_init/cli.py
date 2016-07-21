@@ -14,6 +14,7 @@ path_option = click.option('--path', type=str, default=os.getcwd(), help='The py
 pypi_option = click.option('--pypi', type=str, default='pypi', help='The pypi to look up in your $HOME/.pypirc')
 pypi_username_option = click.option('--pypi-username', type=str)
 repo_option = click.option('-s', '--repo-slug', type=str, help='The repo slug in the form <owner>/<repo_name>')
+repo_name_argument = click.argument('repo_name', type=str)
 
 
 @click.group()
@@ -22,13 +23,15 @@ def cli():
 
 
 @cli.command()
-@click.argument('repo_name')
+@repo_name_argument
 @path_option
 @pypi_option
 @pypi_username_option
 def all(repo_name, path, pypi, pypi_username):
     repo_slug = github(repo_name, path)
     travis(repo_slug)
+    pypi(path, pypi, pypi_username, repo_slug)
+    codecov(path)
 
 
 @cli.command()
@@ -57,7 +60,7 @@ def travis(repo_slug):
 
 
 @cli.command()
-@click.argument('repo_name')
+@repo_name_argument
 @path_option
 def github(repo_name, path):
     github_token = get_keyring_item('github-token', 'Github Token: ')
