@@ -10,13 +10,13 @@ deploy:
   provider: pypi
   user: timmartin19
 env:
-  matrix:
-  - TOXENV=py35
-  - TOXENV=py34
-  - TOXENV=pypy
   global:
   - secure: NN2CTMX7qXN5Tgic8nDDoa146tlnS1HAW7JyuItka2WjK60CXakxm0b6F1nN7pJImG8PCo+p8I2xvSimvI4/GdgfT9JoNpwGxG0PFx3daOf1YV9HBSTwa/ePEivwfNEzroDt5U8Q7/4hHYaOKS6LIyhJVzXinsSVNuizptGOT7UhalZW7y5xtN6pGII2mNHslL6Hrro0d9qafzQsBI25UeBaFB7X94bQuYq31RwTH/tc5XXSZbsG/P3Q8o1uHPUWNU1cLr5jD3OkDYOXcjQJ+jjgBfBk6hr5nEd6Lbj+kYjAXprUxTorMS4gK90Mkkn3z7K0VsBI5pz23jTR817DD1ODUI1hfJDYWBTS1SICM4YBXYmBrt5iJb9qWGNY0JpYuw1JC0CgevqnbrdJUI166BXVrUhfYAKWlOK9px5wwgNssSYFKPW+0omqPI17CS2AGbEQXNkKzkoLLwwpH/cHOZtIPE8oO/s+vrqGW3MroqZi0D6XysmQXqFyXJkNjl6eGLuaH4jAE6S7Dghl/01wgbbsyUNGBWo9ULWMn+ZpRI/sKv2qlxQbDjQ290U47Pp/hlR29uzPbobP7McVRWBA9/+rJ1awe9Oo3IDPeb5+2eoauFn49k/+9Ujd+Rcz4wCy20y1RpxaDm2lbLF0hsRXdmnTshxQJWZQguXrRMccFso=
-install: pip install -U tox
+install:
+- pip install .
+- pip install coverage
 language: python
-python: 3.5
-script: tox -e ${TOXENV}
+python:
+  - "3.5"
+  - "3.4"
+script: coverage run -m unittest discover
