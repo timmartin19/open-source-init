@@ -6,7 +6,7 @@ deploy:
     repo: timmartin19/open-source-init
     tags: true
   password:
-    secure: buJEkwWlCP3oEO64NSW6s6QmuOxW52OpQkmq0s3IWQCZLncbKZI09GycdAoOIhUHhGOUYzeQRBCCj357qW9aw1xivSq+FKkiM5ndgX4gGaxkn7VCpjBhyIRPMaXKF6PA6dy2xuwbV73Ks5T/uhDCH+6aJV9ExwojP9xx5iNHMwvK6g/DVTXeoMiSFZ2DEVsgAMjRWjBDt4A82md+xLthxB2W3C0D/AE/Lsl42MXvItmKQUR5CeJIzAGr288/T/lhflBBbw7RnZTaMAjhGoLIuYYvWpIF/IyDClcxZnY/arYDDYdg5Sx2GA+p+5ebb42l02RShGDe/ecJcfsN+NJVsyPYwDar0GXPuLfkwzDtGFUkTf9hEtjY0Cjlt6cRLMyuiPz4QQEeF6oo7n5BJXCYQKYftUvrXf0Ri5ujcjwIj3deblIkd6ZE4qKA8cM68o+IJtpSToucIZ2wPSyNCGqd6grLxwweSFQYZ9CgMofRDmvTeQ1EYbk5Dgvqfh0L0s3CYZwByLXMJAG3BZH7hN1kHoT5AnWsa+mnNW0MsiLGnpBJPQieiVzjtiSiOju2cUeFmkjMX/DShGsUloIbALPeh4JEobEBYGURakbMS+eBQ1Fj2sQpO8Y5V6YK6NAnb6uQPzzgD8AuZ1dowBZo/CCU+2t7Slcx0DYltWmxOR7AYlY=
+    secure: B6kF1YjYHbVa+rtySbo4Vh9p2PO2dz3dFou8ue9nirGVJR6nRreSLi9RlNB6sZ5mOqmOPLGO6DOCw5B5ZPVk9qktbyEIQSGN2fd2QPfz1q8X9vuLuSQKEE92syxZ7b55IR/fph7ZQfBUEhYWiJtmcmRrrSOf5QR+4um4e9j9UT/UcO02YQLXSszw/VTiwEy77JMb//fsxPLre7Z3+rTsCD5rHl30D8qqWW8qVW5hLfW+nF+nc9cbuFLn5nxWYQrPbRF5uQcA2WYvaNFadO1sMeW7CbpMA/1M6sgdrh7veEEa8nH9hvzOVboBHUtMmP54A0Qd3DCr7dAZPZ9iEnPdBFsaClt5xuekr/2A95TviTJK6Z3b3lnGCPSoddJy2BChGQWTgsVcYyZ1gA998DDghH226SsP3s3/CoZoAWcm7lK1JYSeWzrLX25RP0SLitCS91vujxxXODCX/e1jWYm4dPJARKaqbssFiGeCn1u9EIZu5v54GO/Z3NAPyMZQgJbHXlt+OLzeVnv84rj+Vxek7qVVgYFQ79STRyUwRNRrLW+dgxv8O1AvqmYpLv3KPO+BJUHOYh7gpcql5NPiD+Cb1g1m+ZQAZJdjrdJ5EDZqqAh5PzcrestH7lrID9jCpmHmA9WW8tyEt2oY+jt29OvHu2Z3ygCAN0PsaUHk0FQETkM=
   provider: pypi
   user: timmartin19
 env:
@@ -17,6 +17,6 @@ install:
 - pip install coverage
 language: python
 python:
-  - "3.5"
-  - "3.4"
+- '3.5'
+- '3.4'
 script: coverage run -m unittest discover
