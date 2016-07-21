@@ -47,6 +47,10 @@ class TestGithubInit(unittest.TestCase):
     def test_initial_commit(self):
         start_wd = os.getcwd()
         repo = Repo.init(self.repo_dir)
+        os.chdir(self.repo_dir)
+        os.system('git config user.email "blah@blah.com"')
+        os.system('git config user.name "Blah Blah"')
+        os.chdir(start_wd)
         self.assertEqual(0, len(repo.branches))
         _initial_commit(self.repo_dir)
         self.assertEqual(start_wd, os.getcwd())
