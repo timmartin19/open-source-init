@@ -20,7 +20,7 @@ from open_source_init.github_init import _create_github_repo, _initial_commit, \
 class TestGithubInit(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
-        cls.config = get_envvar_configuration('open_source_init')
+        cls.config = get_envvar_configuration('OPEN_SOURCE_INIT')
         cls.github_token = cls.config['GITHUB_TOKEN']
         cls.github = Github(cls.github_token)
         cls.user = cls.github.get_user()
