@@ -17,7 +17,9 @@ requirements = [
     'cryptography',
     'gitpython',
     'keyring',
-    'requests'
+    'py-env-config',
+    'requests',
+    'retrying'
 ]
 
 test_requirements = [

@@ -2,11 +2,14 @@ from __future__ import absolute_import
 from __future__ import division
 from __future__ import print_function
 from __future__ import unicode_literals
+
 import base64
 import json
+
 from cryptography.hazmat.primitives.serialization import load_pem_public_key
 from cryptography.hazmat.backends import default_backend
 from cryptography.hazmat.primitives.asymmetric.padding import PKCS1v15
+from retrying import retry
 
 
 try:
@@ -23,11 +26,17 @@ from open_source_init.credentials import get_keyring_item
 def instantiate_travis_ci(github_token, repo_slug):
     travis = TravisPy.github_auth(github_token)
     travis_user = travis.user()
+    _instantiate_travis_retry_loop(travis, travis_user, repo_slug)
+
+
+@retry(stop_max_attempt_number=5, wait_fixed=2000)
+def _instantiate_travis_retry_loop(travis, travis_user, repo_slug):
     synced = travis_user.sync()
     assert synced, "Failed to sync github repos in Travis CI"
     repo = travis.repo(repo_slug)
     enabled = repo.enable()
     assert enabled, "Failed to enable repo {0}".format(repo_slug)
+
 
 
 def get_travis_data(full_travis_path):
