@@ -28,7 +28,7 @@ test_requirements = [
 
 setup(
     name='open-source-init',
-    version='0.1.1',
+    version='0.1.2',
     description="A tool to automatically create a github repo, integrate travis, code coverage, read the docs, and everything else necessary for OSS development",
     long_description=readme + '\n\n' + history,
     author="Tim Martin",
