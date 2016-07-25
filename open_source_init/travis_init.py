@@ -1,8 +1,3 @@
-from __future__ import absolute_import
-from __future__ import division
-from __future__ import print_function
-from __future__ import unicode_literals
-
 import base64
 import json
 
@@ -41,7 +36,7 @@ def _instantiate_travis_retry_loop(travis, travis_user, repo_slug):
 
 def get_travis_data(full_travis_path):
     with open(full_travis_path, mode='rb') as f:
-        return yaml.safe_load(f.read())
+        return yaml.load(f.read())
 
 
 def set_travis_data(full_travis_path, data):
@@ -51,14 +46,16 @@ def set_travis_data(full_travis_path, data):
 
 def travis_encrypt(data, repo):
     public_key = fetch_public_key(repo)
-    return {b'secure': encrypt(public_key, data)}
+    print(type(data))
+    print(type(public_key))
+    return {'secure': encrypt(public_key, data)}
 
 
 def coveralls_init(full_travis_path):
     data = get_travis_data(full_travis_path)
-    after_success = data.get(b'after_success', [])
-    after_success.append(b'bash <(curl -s https://codecov.io/bash)')
-    data[b'after_success'] = after_success
+    after_success = data.get('after_success', [])
+    after_success.append('bash <(curl -s https://codecov.io/bash)')
+    data['after_success'] = after_success
     set_travis_data(full_travis_path, data)
 
 

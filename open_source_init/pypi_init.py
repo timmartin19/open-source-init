@@ -1,24 +1,28 @@
-from __future__ import absolute_import
-from __future__ import division
-from __future__ import print_function
-from __future__ import unicode_literals
-
 import os
+
+import six
 
 from open_source_init.credentials import get_keyring_item
 from open_source_init.travis_init import travis_encrypt, get_travis_data, set_travis_data
 
 
 def _travis_pypi_init(full_travis_path, pyppi_username, repo_slug):
-    conditions = {b'tags': True, b'repo': repo_slug.encode('utf-8')}
     pypi_password = get_keyring_item('pypi-{0}'.format(pyppi_username), 'PyPI password for {0}: '.format(pyppi_username))
+    pypi_password = pypi_password.encode('utf-8') if isinstance(pypi_password, six.text_type) else pypi_password
     pypi_password = travis_encrypt(pypi_password.encode('utf-8'), repo_slug)
+    _write_to_travis_yaml(full_travis_path, pyppi_username, repo_slug, pypi_password)
+
+
+def _write_to_travis_yaml(full_travis_path, pypi_username, repo_slug, pypi_password):
     deploy = {
-        b'provider': b'pypi',
-        b'distributions': b'sdist bdist_wheel',
-        b'user': pyppi_username.encode('utf-8'),
-        b'password': pypi_password,
-        b'on': conditions
+        'provider': 'pypi',
+        'distributions': 'sdist bdist_wheel',
+        'user': pypi_username,
+        'password': pypi_password,
+        'on': {
+            'tags': True,
+            'repo': repo_slug
+        }
     }
     travis_data = get_travis_data(full_travis_path)
     travis_data['deploy'] = deploy

@@ -27,11 +27,11 @@ def cli():
 @path_option
 @pypi_option
 @pypi_username_option
-def all(repo_name, path, pypi, pypi_username):
-    repo_slug = github(repo_name, path)
-    travis(repo_slug)
-    pypi(path, pypi, pypi_username, repo_slug)
-    codecov(path)
+def full(repo_name, path, pypi, pypi_username):
+    repo_slug = _github(repo_name, path)
+    _travis(repo_slug)
+    _pypi(path, pypi, pypi_username, repo_slug)
+    _codecov(path)
 
 
 @cli.command()
@@ -40,6 +40,10 @@ def all(repo_name, path, pypi, pypi_username):
 @pypi_username_option
 @repo_option
 def pypi(path, pypi, pypi_username, repo_slug):
+    _pypi(path, pypi, pypi_username, repo_slug)
+
+
+def _pypi(path, pypi, pypi_username, repo_slug):
     travis_yml_path = os.path.join(path, '.travis.yml')
     setup_py_path = os.path.join(path, 'setup.py')
     pypi_init(travis_yml_path, pypi_username, repo_slug, setup_py_path, pypi)
@@ -48,6 +52,10 @@ def pypi(path, pypi, pypi_username, repo_slug):
 @cli.command()
 @path_option
 def codecov(path):
+    _codecov(path)
+
+
+def _codecov(path):
     travis_yml_path = os.path.join(path, '.travis.yml')
     coveralls_init(travis_yml_path)
 
@@ -55,6 +63,10 @@ def codecov(path):
 @cli.command()
 @repo_option
 def travis(repo_slug):
+    _travis(repo_slug)
+
+
+def _travis(repo_slug):
     github_token = get_keyring_item('github-token', 'Github Token: ')
     instantiate_travis_ci(github_token, repo_slug)
 
@@ -63,8 +75,13 @@ def travis(repo_slug):
 @repo_name_argument
 @path_option
 def github(repo_name, path):
+    _github(repo_name, path)
+
+
+def _github(repo_name, path):
     github_token = get_keyring_item('github-token', 'Github Token: ')
     return create_repo(github_token, repo_name, path)
+
 
 
 if __name__ == "__main__":
