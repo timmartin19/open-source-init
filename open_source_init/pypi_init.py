@@ -9,7 +9,7 @@ from open_source_init.travis_init import travis_encrypt, get_travis_data, set_tr
 def _travis_pypi_init(full_travis_path, pyppi_username, repo_slug):
     pypi_password = get_keyring_item('pypi-{0}'.format(pyppi_username), 'PyPI password for {0}: '.format(pyppi_username))
     pypi_password = pypi_password.encode('utf-8') if isinstance(pypi_password, six.text_type) else pypi_password
-    pypi_password = travis_encrypt(pypi_password.encode('utf-8'), repo_slug)
+    pypi_password = travis_encrypt(pypi_password, repo_slug)
     _write_to_travis_yaml(full_travis_path, pyppi_username, repo_slug, pypi_password)
 
 

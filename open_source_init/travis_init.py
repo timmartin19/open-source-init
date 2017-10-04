@@ -1,5 +1,6 @@
 import base64
 import json
+import six
 
 from cryptography.hazmat.primitives.serialization import load_pem_public_key
 from cryptography.hazmat.backends import default_backend
@@ -46,9 +47,9 @@ def set_travis_data(full_travis_path, data):
 
 def travis_encrypt(data, repo):
     public_key = fetch_public_key(repo)
-    print(type(data))
-    print(type(public_key))
-    return {'secure': encrypt(public_key, data)}
+    encrypted = encrypt(public_key, data)
+    encrypted = encrypted.decode('utf-8') if isinstance(encrypted, six.text_type) else encrypted
+    return {'secure': encrypted}
 
 
 def coveralls_init(full_travis_path):
